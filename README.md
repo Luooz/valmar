@@ -231,8 +231,8 @@ global:
           enabled: true
           contactCmr: true
           designatedGroup: "PLATAFORMA REDEFLEX (S000620)"
-          businessImpact: "Indisponibilidade do serviço de parametrização da Antecipação na plataforma Kosmos"
-          description: "Aplicação ma-zenite-balance obteve erro 500, necessário intermediação para resolução do problema, esse erro afeta diretamente a parametrização da plataforma Kosmos. Deve acionar o plantonista da sigla MA1."
+          businessImpact: "Serviço fora do ar"
+          description: "Erro 500 na aplicação ma-zenite-balance. Precisamos de ajuda para resolver. Afeta a plataforma Kosmos. Chamar MA1."
         responseTime:
           enabled: true
           timeInMs: 100
@@ -241,7 +241,5 @@ global:
           contactCmr: true
           threshold: 1
           designatedGroup: "PLATAFORMA REDEFLEX (S000620)"
-          businessImpact: "Erros 5xx na aplicação ma-zenite-balance impactando a funcionalidade de parametrização."
-          description: "Erros 5xx detectados na aplicação ma-zenite-balance. Verificar logs e acionar o time de suporte."
-
- 
+          businessImpact: "Erros 5xx na aplicação"
+          description: "Erros 5xx na aplicação ma-zenite-balance. Verificar logs. Chamar time de suporte."
