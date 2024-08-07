@@ -220,4 +220,28 @@ História - HIS-2024-1679024 - [Zenite-Hire] Configuração de Alarme para a Apl
 História - HIS-2024-1679045 - [Zenite-Balance] Configuração de Alarme para a Aplicação ma-zenite-balance
  
 Basicamente vamos fazer os alarmes nesses módulos acima. Eu sugiro vc comecar com a Balance.
+
+global:
+  ...
+  stackParts:
+    observability:
+      enabled: true
+      alerts:
+        availability:
+          enabled: true
+          contactCmr: true
+          designatedGroup: "PLATAFORMA REDEFLEX (S000620)"
+          businessImpact: "Indisponibilidade do serviço de parametrização da Antecipação na plataforma Kosmos"
+          description: "Aplicação ma-zenite-balance obteve erro 500, necessário intermediação para resolução do problema, esse erro afeta diretamente a parametrização da plataforma Kosmos. Deve acionar o plantonista da sigla MA1."
+        responseTime:
+          enabled: true
+          timeInMs: 100
+        statusCode5xx:
+          enabled: true
+          contactCmr: true
+          threshold: 1
+          designatedGroup: "PLATAFORMA REDEFLEX (S000620)"
+          businessImpact: "Erros 5xx na aplicação ma-zenite-balance impactando a funcionalidade de parametrização."
+          description: "Erros 5xx detectados na aplicação ma-zenite-balance. Verificar logs e acionar o time de suporte."
+
  
