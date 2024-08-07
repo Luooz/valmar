@@ -86,6 +86,38 @@ global:
             Verifique se o sistema antifraudes está operacional em afirmativo
             entre em contato com a Squad AutorizaPagot.
 
+global:
+# ...
+  stackParts:
+    # ...
+    observability:
+      enabled: true
+      alerts:
+        # ...
+        responseTime:
+          enabled: true
+          timeInMs: 100
+
+global:
+# ...
+  stackParts:
+    # ...
+    observability:
+      enabled: true
+      alerts:
+        # ...
+        statusCode5xx:
+          enabled: true
+          contactCmr: true
+          threshold: 1
+          designatedGroup: CmrGrupoB
+          businessImpact: Autorização de Pagamento [Rede, Boletos]
+          description: >-
+            Verifique se o SGBD Marte está com lock na tabela `transactions`,
+            o mesmo acontece devido a problemas no sistema transacional, caso não.
+            Entre em contato com a Squad AutorizaPagot.
+
+
 Em casos de quebras de linhas para os campos designatedGroup, businessImpact e ou description utilize a quebra do bloco com a notação >-
 
 Auto Instrumentação¶
