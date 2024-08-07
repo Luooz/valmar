@@ -201,4 +201,25 @@ global:
           description: "Aplicação ma-zenite obteve erro 500, necessário intermediação para resolução do problema, esse erro afeta diretamente a orquestração dos canais de antecipação. Deve acionar o plantonista da sigla MA1."
 
 É zenite antiga, mas pra você ter como base. vc precisa acrescentar esses campos, referente ao alarme na zenite nova.
- 
+
+
+ global:
+# ...
+  stackParts:
+    # ...
+    observability:
+      enabled: true
+      alerts:
+        # ...
+        statusCode5xx:
+          enabled: true
+          contactCmr: true
+          threshold: 1
+          designatedGroup: CmrGrupoB
+          businessImpact: Autorização de Pagamento [Rede, Boletos]
+          description: >-
+            Verifique se o SGBD Marte está com lock na tabela `transactions`,
+            o mesmo acontece devido a problemas no sistema transacional, caso não.
+            Entre em contato com a Squad AutorizaPagot.
+
+            vc precisa acrescentar esses campos, referente ao alarme na zenite nova
