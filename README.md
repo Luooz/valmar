@@ -243,3 +243,101 @@ global:
           designatedGroup: "PLATAFORMA REDEFLEX (S000620)"
           businessImpact: "Erros 5xx na aplicação"
           description: "Erros 5xx na aplicação ma-zenite-balance. Verificar logs. Chamar time de suporte."
+
+          ____________
+
+          global:
+    replicaCount: 1
+
+    application:
+        name: ma-zenite-balance
+        critical: true
+        spec:
+            autoscaling:
+                enabled: true
+                minReplicas: 3
+                maxReplicas: 5
+                targetCPU: 60
+                targetMemory: 60
+            container:
+                port: 8080
+                livenessProbe:
+                    httpGet:
+                        path: /health
+                        port: 8080
+                    periodSeconds: 10
+                    successThreshold: 1
+                    timeoutSeconds: 1
+                    failureThreshold: 3
+                    initialDelaySeconds: 10
+                readinessProbe:
+                    httpGet:
+                        path: /health
+                        port: 8080
+                    periodSeconds: 1
+                    successThreshold: 1
+                    timeoutSeconds: 1
+                    failureThreshold: 8
+                    initialDelaySeconds: 2
+                resources:
+                    limits:
+                        cpu: 500m
+                        memory: 128Mi
+                    requests:
+                        cpu: 500m
+                        memory: 128Mi
+                env:
+                    -   name: "APP_NAME"
+                        value: "ma-zenite-balance"
+                    -   name: "LOGGING_LEVEL"
+                        value: "DEBUG"
+                    -   name: "SERVER_MODE"
+                        value: "debug"
+                    -   name: "SERVER_PORT"
+                        value: "8080"
+                    -   name: "SERVER_TIMEOUT"
+                        value: "100"
+                    -   name: "KOSMO_HOST"
+                        value: http://ma-calculo-antecipacao.ma:8080
+                    -   name: "DR_CANAIS_CORPORATIVOS_HOST"
+                        value: http://dr-canais-corporativos-api.dr.contas-receber.aws.hom.useredecloud
+                    -   name: "PARAMETROS_CRUD_HOST"
+                        value: http://parametros-crud.ma:3000
+                    -   name: "BALANCE_BLOCKED_HOST"
+                        value: http://ma-saldos-bloqueados.ma.antecipacao-recebiveis.aws.hom.useredecloud
+                    -   name: "KOSMO_SALDO_HOST"
+                        value: http://ma-saldo.ma:3000
+                    -   name: "KOSMO_OPERACAO_HOST"
+                        value: http://ma-operacao.ma:8080
+                    -   name: "DR_GESTAO_BANDEIRAS_HOST"
+                        value: http://dr-gestaobandeiras-api.dr.contas-receber.aws.hom.useredecloud
+                    -   name: "MA_CACHE_MANAGER_HOST"
+                        value: http://ma-cache-manager.ma:8080
+                    -   name: "DR_WCF_BANDEIRAS_HOST"
+                        value: http://wcf-pcicorp.hom.useredecloud:8107/DR/Rede.NovasBandeiras/ServicosDR.svc?wsdl
+                    -   name: "BALANCE_BLOCKED_COMPANY_HOST"
+                        value: http://ma-consulta-saldos-bloqueados.ma:8080
+
+    stackParts:
+        api:
+            enabled: true
+        secret:
+            enabled: true
+        observability:
+            enabled: true
+            alerts:
+                availability:
+                    enabled: true
+                    designatedGroup: "ANTECIPACAO INTERNA (S002968)"
+        businessImpact: "Indisponibilidade do serviço na plataforma Zenite"
+        description: "Aplicação ma-zenite balance obteve erro 500, necessário intermediação para resolução do problema, esse erro afeta diretamente a orquestração dos canais de antecipação. Deve acionar o plantonista da sigla MA1."
+        responseTime:
+          enabled: true
+          timeInMs: 100
+        statusCode5xx:
+        enabled: true
+        contactCmr: true
+        threshold: 1
+        designatedGroup: "ANTECIPACAO INTERNA (S002968)"
+        businessImpact: "Indisponibilidade do serviço na plataforma Zenite"
+        description: "Aplicação ma-zenite balance obteve erro 500, necessário intermediação para resolução do problema, esse erro afeta diretamente a orquestração dos canais de antecipação. Deve acionar o plantonista da sigla MA1."
